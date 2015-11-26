@@ -1,4 +1,4 @@
-from shell_handler import hue_upnp_shell_handler
+# from shell_handler import hue_upnp_shell_handler
 from domoticz_handler import DomoticzHueHandler
 from domoticz import DomoticzManager
 from log import L
@@ -24,18 +24,32 @@ DOMOTICZ_CONFIG = {
 }
 
 # sets your devices
-DEVICES = []
 domoticx_cfg = dict(logger=L)
 domoticx_cfg.update(DOMOTICZ_CONFIG)
 
 mgr = DomoticzManager(**domoticx_cfg)
-mgr.fetch_switch_list()
 
-for light in mgr.get_switches():
-    DEVICES.append(
-        DomoticzHueHandler(
-            light.name,
-            light.idx,
-            mgr
+exclude_subtypes = ('KD101 smoke detector',)
+exclude_descriptions = ('[exclude_harmony]',)
+exclude_hardware_types = ('Logitech Harmony Hub','Kodi Media Server')
+
+def get_devices():
+    mgr.fetch_switch_list()
+
+
+    ret = []
+    for light in mgr.get_light_details():
+        if x.get('SubType') in exclude_subtypes:
+            continue
+        if x.get('Description') in exclude_descriptions:
+            continue
+        if x.get('HardwareType') in exclude_hardware_types:
+            continue
+        ret.append(
+            DomoticzHueHandler(
+                light.name,
+                light.idx,
+                mgr
+            )
         )
-    )
+    return ret

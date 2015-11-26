@@ -92,6 +92,22 @@ class DomoticzManager(object):
 
         return ret.get('result')
 
+    def get_device_details(self, idx):
+        arguments= {
+            'type':'devices',
+            'rid':idx
+        }
+        return self._request(arguments)
+
+    def get_light_details(self):
+        arguments= {
+            'type':'devices',
+            'filter':'light',
+            'used':True,
+            'order':'Name',
+        }
+        return self._request(arguments)
+
     def fetch_switch_list(self):
         self.lights = {
             light.idx : light for light in self.get_switches()
