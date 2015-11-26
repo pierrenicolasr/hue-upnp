@@ -46,8 +46,8 @@ def get_devices():
             continue
         ret.append(
             DomoticzHueHandler(
-                light.name,
-                light.idx,
+                light.get('Name').encode("ascii","ignore"),
+                light.get('idx'),
                 mgr
             )
         )
