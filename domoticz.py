@@ -11,17 +11,23 @@ class Light(object):
         self.sub_type = sub_type
         self.idx = idx
         self.type = type
-        self.name = name
+
+        # convert to ascii for now
+        udata=name.decode("utf-8")
+        self.name=udata.encode("ascii","ignore")
         self.is_dimmer = is_dimmer
         self.manager = manager
 
     @classmethod
     def from_dict(cls, dict, manager=None):
+        # convert to ascii for now
+        udata=dict.get('Name', '').decode("utf-8")
+        name=udata.encode("ascii","ignore")
         return Light(
             sub_type=dict.get('SubType'),
             idx=dict.get('idx'),
             type=dict.get('Type'),
-            name=dict.get('Name'),
+            name=name,
             is_dimmer=dict.get('IsDimmer'),
             manager=manager,
         )
