@@ -28,13 +28,14 @@ DEVICES = []
 domoticx_cfg = dict(logger=L)
 domoticx_cfg.update(DOMOTICZ_CONFIG)
 
-mgr = DomoticzManager(*domoticx_cfg)
+mgr = DomoticzManager(**domoticx_cfg)
 mgr.fetch_switch_list()
 
-for light in mgr.get_switches().values():
+for light in mgr.get_switches():
     DEVICES.append(
         DomoticzHueHandler(
             light.name,
-            light.idx
+            light.idx,
+            mgr
         )
     )
