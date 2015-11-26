@@ -10,10 +10,10 @@ class DomoticzHueHandler(hue_upnp_super_handler):
         self.manager.fetch_switch_list()
 
     def set_on(self):
-        self.manager.set_switch(self.idx, True)
+        self.manager.change_switch_state(self.idx, True)
 
     def set_off(self):
-        self.manager.set_switch(self.idx, False)
+        self.manager.change_switch_state(self.idx, False)
 
     def set_bri(self, value):
         pass
