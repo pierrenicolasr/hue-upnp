@@ -13,16 +13,14 @@ class Light(object):
         self.type = type
 
         # convert to ascii for now
-        udata=name.decode("utf-8")
-        self.name=udata.encode("ascii","ignore")
+        name=name.encode("ascii","ignore")
         self.is_dimmer = is_dimmer
         self.manager = manager
 
     @classmethod
     def from_dict(cls, dict, manager=None):
         # convert to ascii for now
-        udata=dict.get('Name', '').decode("utf-8")
-        name=udata.encode("ascii","ignore")
+        name=dict.get('Name', '').encode("ascii","ignore")
         return Light(
             sub_type=dict.get('SubType'),
             idx=dict.get('idx'),
@@ -34,7 +32,7 @@ class Light(object):
 
     def turn_on(self):
         if self.manager:
-            return self.manager.change_switch_state.set_switch(self.idx, True)
+            return self.manager.change_switch_state(self.idx, True)
 
     def turn_off(self):
         if self.manager:
