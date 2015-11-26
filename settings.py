@@ -35,6 +35,7 @@ exclude_hardware_types = ('Logitech Harmony Hub','Kodi Media Server')
 
 def get_devices():
     mgr.fetch_switch_list()
+    ret = []
 
     for light in mgr.get_light_details():
         if light.get('SubType') in exclude_subtypes:
@@ -50,6 +51,7 @@ def get_devices():
                 mgr
             )
         )
+    return ret
 
 DEVICES = get_devices()
 
