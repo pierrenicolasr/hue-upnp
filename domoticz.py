@@ -13,7 +13,7 @@ class Light(object):
         self.type = type
 
         # convert to ascii for now
-        name=name.encode("ascii","ignore")
+        self.name=name.encode("ascii","ignore")
         self.is_dimmer = is_dimmer
         self.manager = manager
 
