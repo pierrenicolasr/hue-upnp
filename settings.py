@@ -36,14 +36,12 @@ exclude_hardware_types = ('Logitech Harmony Hub','Kodi Media Server')
 def get_devices():
     mgr.fetch_switch_list()
 
-
-    ret = []
     for light in mgr.get_light_details():
-        if x.get('SubType') in exclude_subtypes:
+        if light.get('SubType') in exclude_subtypes:
             continue
-        if x.get('Description') in exclude_descriptions:
+        if light.get('Description') in exclude_descriptions:
             continue
-        if x.get('HardwareType') in exclude_hardware_types:
+        if light.get('HardwareType') in exclude_hardware_types:
             continue
         ret.append(
             DomoticzHueHandler(
@@ -52,4 +50,6 @@ def get_devices():
                 mgr
             )
         )
-    return ret
+
+DEVICES = get_devices()
+

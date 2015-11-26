@@ -17,7 +17,7 @@ import time
 from threading import Thread
 
 from log import L
-from settings import IP, HTTP_PORT, GATEWAYIP, MACADDRESS, get_devices as DEVICES
+from settings import IP, HTTP_PORT, GATEWAYIP, MACADDRESS, DEVICES
 import debug
 
 # config
